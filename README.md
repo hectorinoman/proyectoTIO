@@ -1,3 +1,3 @@
-# proyectoTIO
+# Proyecto de Tecnologías de la Información para las Organizaciones
 
-## Aplicación de busqueda de deportes geolocalizados en la ciudad de santa cruz de tenerife
+## Aplicación de búsqueda de deportes geolocalizados en la ciudad de San Cristobal de La Laguna
