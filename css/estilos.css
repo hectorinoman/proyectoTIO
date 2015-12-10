@@ -1,8 +1,11 @@
 body {
-  background-image: url("../imagenes/fondo4.jpg");
+  background-image: url("../imagenes/fondo3.jpg");
   background-repeat: no-repeat;
+  background-color: white;
   background-size: cover;
+
   color: black;
+
 }
 
 #intro {
@@ -33,6 +36,4 @@ label {
 
 #formulario_buscar {
   margin-top: 3%;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 10px
 }
