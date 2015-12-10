@@ -1,0 +1,38 @@
+body {
+  background-image: url("../imagenes/fondo4.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  color: black;
+}
+
+#intro {
+  padding-top: 4%;
+  text-align: justify;
+}
+
+h1 {
+  text-align: center;
+  padding-bottom: 4%;
+  font-weight: bold;
+
+}
+
+h3 {
+  padding-bottom: 3%;
+  font-weight: bold;
+}
+
+label {
+  font-size: 150%;
+  font-weight: bold;
+}
+
+#btn_posact {
+  margin-bottom: 3%;
+}
+
+#formulario_buscar {
+  margin-top: 3%;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px
+}
