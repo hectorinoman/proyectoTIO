@@ -28,9 +28,9 @@ function localizacion(){
 }
 
 function exito(position){
-  var x = position.coords.latitude;
-  console.log(x);
+  var latitud = position.coords.latitude;
+  var longitud = position.coords.longitude;
 }
-function fracaso(position){
+function fracaso(){
   $('#error_buscar').append("<p class='error_p'>No se pudo geolocalizar su posición<p>");
 }
