@@ -21,7 +21,6 @@ function buscar() {
 
 function localizacion(){
   if (navigator.geolocation) {
-    console.log("hola2");
     navigator.geolocation.getCurrentPosition(exito, fracaso);
   } else {
     x.innerHTML = "Geolocation is not supported by this browser.";
@@ -29,8 +28,9 @@ function localizacion(){
 }
 
 function exito(position){
-  console.log("bieen");
+  var x = position.coords.latitude;
+  console.log(x);
 }
 function fracaso(position){
-  console.log("mal");
+  $('#error_buscar').append("<p class='error_p'>No se pudo geolocalizar su posición<p>");
 }
