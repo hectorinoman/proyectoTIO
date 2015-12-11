@@ -28,7 +28,7 @@ function localizacion(){
   }
 }
 
-function bien(exito){
+function exito(exito){
   var lon = objPosition.coords.longitude;
 	var lat = objPosition.coords.latitude;
   console.log("bieen");
