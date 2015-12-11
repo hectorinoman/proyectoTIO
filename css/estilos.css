@@ -37,3 +37,9 @@ label {
 #formulario_buscar {
   margin-top: 3%;
 }
+
+.error_p {
+  color:rgba(221, 8, 8, 1);
+  padding-left: 11%;
+  font-weight: bolder;
+}
