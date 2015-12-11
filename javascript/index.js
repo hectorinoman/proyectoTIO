@@ -1,5 +1,4 @@
 var btnPostact, direccion, btnBuscar;
-var x = document.getElementById("x");
 
 function initialize() {
   var btnPosact = document.getElementById('btn_posact');
@@ -23,13 +22,15 @@ function localizacion(){
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(exito, fracaso);
   } else {
-    x.innerHTML = "Geolocation is not supported by this browser.";
+    $('#error_buscar').append("<p class='error_p'>La geolocalización no es soportada por este navegador<p>");
   }
 }
 
 function exito(position){
+  var direccion = document.getElementById('lugar').value;
   var latitud = position.coords.latitude;
   var longitud = position.coords.longitude;
+  direccion.value = latitud + "," + longitud;
 }
 function fracaso(){
   $('#error_buscar').append("<p class='error_p'>No se pudo geolocalizar su posición<p>");
