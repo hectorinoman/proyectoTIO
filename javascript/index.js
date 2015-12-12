@@ -1,8 +1,10 @@
-var btnPostact, direccion, btnBuscar;
+var btnPostact, direccion, btnBuscar, geocoder;
 
+//funcion que inicialia las variables y los EventListeners
 function initialize() {
-  var btnPosact = document.getElementById('btn_posact');
-  var btnBuscar = document.getElementById('btn_buscar');
+  btnPosact = document.getElementById('btn_posact');
+  btnBuscar = document.getElementById('btn_buscar');
+  geocoder =  new google.maps.Geocoder();
 
   //EventListeners
   btnBuscar.addEventListener("click", buscar);
@@ -15,6 +17,15 @@ function buscar() {
   var direccion = document.getElementById('lugar').value;
   if(direccion == ""){
     $('#error_buscar').append("<p class='error_p'>El campo de dirección tiene que estar relleno<p>");
+  }
+  else {
+    geocoder.geocode( { 'direccion': direccion }, function(results, status) {
+      if (status == google.maps.GeocoderStatus.OK) {
+        var latitude = results[0].geometry.location.lat();
+        var longitude = results[0].geometry.location.lng();
+        alert(latitude);
+      }
+    });
   }
 }
 
