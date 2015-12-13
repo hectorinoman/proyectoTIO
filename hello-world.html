@@ -1,3 +1,5 @@
+<html>
+	<body>
 <script src="https://maps.googleapis.com/maps/api/js?v=3&.js"></script>
     <div id="content-pane">
       <button type="button" onclick="calculateDistances();">
@@ -6,11 +8,34 @@
       <div id="outputDiv"></div>
     </div>
     <div id="map-canvas"></div>
+    </body>
+</html>
 
+<style>
+html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
 
+      #map-canvas {
+        height: 100%;
+        width: 50%;
+      }
+      #content-pane {
+        float:right;
+        width:48%;
+        padding-left: 2%;
+      }
 
-
-
+      #outputDiv>div:nth-child(n+2){
+         border-top:1px dotted silver;
+      }
+      #outputDiv code{
+        cursor:pointer;
+        color:#fff;
+      }
+</style>
 
 
 
