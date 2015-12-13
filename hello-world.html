@@ -1,103 +1,128 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
-    <meta charset="utf-8">
-        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDkX-L6WfbqggiLHKEyp2eYv3KRVlCWAfI&signed_in=true&callback=initMap"
-        async defer></script>
-    <title>Directions service</title>
-    <style>
-      html, body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-      }
-      #map {
-        height: 100%;
-      }
-#floating-panel {
-  position: absolute;
-  top: 10px;
-  left: 25%;
-  z-index: 5;
-  background-color: #fff;
-  padding: 5px;
-  border: 1px solid #999;
-  text-align: center;
-  font-family: 'Roboto','sans-serif';
-  line-height: 30px;
-  padding-left: 10px;
-}
-
-    </style>
-  </head>
-  <body>
-    <div id="floating-panel">
-    <b>Start: </b>
-    <select id="start" onchange="calcRoute();">
-      <option value="chicago, il">Chicago</option>
-      <option value="st louis, mo">St Louis</option>
-      <option value="joplin, mo">Joplin, MO</option>
-      <option value="oklahoma city, ok">Oklahoma City</option>
-      <option value="amarillo, tx">Amarillo</option>
-      <option value="gallup, nm">Gallup, NM</option>
-      <option value="flagstaff, az">Flagstaff, AZ</option>
-      <option value="winona, az">Winona</option>
-      <option value="kingman, az">Kingman</option>
-      <option value="barstow, ca">Barstow</option>
-      <option value="san bernardino, ca">San Bernardino</option>
-      <option value="los angeles, ca">Los Angeles</option>
-    </select>
-    <b>End: </b>
-    <select id="end" onchange="calcRoute();">
-      <option value="chicago, il">Chicago</option>
-      <option value="st louis, mo">St Louis</option>
-      <option value="joplin, mo">Joplin, MO</option>
-      <option value="oklahoma city, ok">Oklahoma City</option>
-      <option value="amarillo, tx">Amarillo</option>
-      <option value="gallup, nm">Gallup, NM</option>
-      <option value="flagstaff, az">Flagstaff, AZ</option>
-      <option value="winona, az">Winona</option>
-      <option value="kingman, az">Kingman</option>
-      <option value="barstow, ca">Barstow</option>
-      <option value="san bernardino, ca">San Bernardino</option>
-      <option value="los angeles, ca">Los Angeles</option>
-    </select>
+<script src="https://maps.googleapis.com/maps/api/js?v=3&.js"></script>
+    <div id="content-pane">
+      <button type="button" onclick="calculateDistances();">
+        Calculate distances
+      </button>
+      <div id="outputDiv"></div>
     </div>
-    <div id="map"></div>
-    <script>
-function initMap() {
-  var directionsService = new google.maps.DirectionsService;
-  var directionsDisplay = new google.maps.DirectionsRenderer;
-  var map = new google.maps.Map(document.getElementById('map'), {
-    zoom: 7,
-    center: {lat: 41.85, lng: -87.65}
-  });
-  directionsDisplay.setMap(map);
+    <div id="map-canvas"></div>
 
-  var onChangeHandler = function() {
-    calculateAndDisplayRoute(directionsService, directionsDisplay);
+
+
+
+
+
+
+
+<script >
+var map;
+var geocoder;
+var bounds = new google.maps.LatLngBounds();
+var markersArray = [];
+
+var origin1 = new google.maps.LatLng(55.930, -3.118);
+var origin2 = 'Greenwich, England';
+var destinationA = 'Stockholm, Sweden';
+var destinationB = new google.maps.LatLng(50.087, 14.421);
+
+var destinationIcon = 'http://www.google.com/mapfiles/dd-end.png';
+var originIcon = 'http://www.google.com/mapfiles/dd-start.png';
+
+function initialize() {
+  var opts = {
+    center: new google.maps.LatLng(55.53, 9.4),
+    zoom: 10
   };
-  document.getElementById('start').addEventListener('change', onChangeHandler);
-  document.getElementById('end').addEventListener('change', onChangeHandler);
+  map = new google.maps.Map(document.getElementById('map-canvas'), opts);
+  geocoder = new google.maps.Geocoder();
 }
 
-function calculateAndDisplayRoute(directionsService, directionsDisplay) {
-  directionsService.route({
-    origin: document.getElementById('start').value,
-    destination: document.getElementById('end').value,
-    travelMode: google.maps.TravelMode.DRIVING
-  }, function(response, status) {
-    if (status === google.maps.DirectionsStatus.OK) {
-      directionsDisplay.setDirections(response);
+function calculateDistances() {
+  var service = new google.maps.DistanceMatrixService();
+  service.getDistanceMatrix(
+    {
+      origins: [origin1, origin2],
+      destinations: [destinationA, destinationB],
+      travelMode: google.maps.TravelMode.DRIVING,
+      unitSystem: google.maps.UnitSystem.METRIC,
+      avoidHighways: false,
+      avoidTolls: false
+    }, callback);
+}
+
+function callback(response, status) {
+
+  if (status != google.maps.DistanceMatrixStatus.OK) {
+    alert('Error was: ' + status);
+  } else {
+    var origins = response.originAddresses;
+    var destinations = response.destinationAddresses;
+    var outputDiv = document.getElementById('outputDiv');
+    outputDiv.innerHTML = '';
+    deleteOverlays();
+
+    for (var i = 0; i < origins.length; i++) {
+      //create a new "row"
+      var row=outputDiv.appendChild(document.createElement('div'));
+      
+      var results = response.rows[i].elements;
+      //origin-marker
+      addMarker(origins[i], false,row.appendChild(document.createElement('code')));
+      //a list for the destinations
+      var list=row.appendChild(document.createElement('ul'));
+      
+      
+      for (var j = 0; j < results.length; j++) {
+        var item=list.appendChild(document.createElement('li'));
+        item.appendChild(document.createTextNode(' to '));
+        //destination-marker
+        addMarker(destinations[j], true,item.appendChild(document.createElement('code')));
+        item.appendChild(document.createTextNode([': ',
+                                                  results[j].distance.text,
+                                                  ' in ',
+                                                  results[j].duration.text
+                                                  ].join('')));
+
+      }
+    }
+  }
+}
+
+function addMarker(location, isDestination,node) {
+  var icon;
+  if (isDestination) {
+    icon = destinationIcon;
+  } else {
+    icon = originIcon;
+  }
+  geocoder.geocode({'address': location}, function(results, status) {
+    if (status == google.maps.GeocoderStatus.OK) {
+      bounds.extend(results[0].geometry.location);
+      map.fitBounds(bounds);
+      var marker = new google.maps.Marker({
+        map: map,
+        position: results[0].geometry.location,
+        icon: icon
+      });
+      markersArray.push(marker);
+      node.appendChild(document.createTextNode('('+marker.getPosition().toUrlValue()+')'));
+      node.setAttribute('title',location);
+      node.style.background=(isDestination)?'red':'green';
+      google.maps.event.addDomListener(node,'click',function(){map.panTo(marker.getPosition())})
     } else {
-      window.alert('Directions request failed due to ' + status);
+      alert('Geocode was not successful for the following reason: '
+        + status);
     }
   });
 }
 
+function deleteOverlays() {
+  for (var i = 0; i < markersArray.length; i++) {
+    markersArray[i].setMap(null);
+  }
+  markersArray = [];
+}
 
-    </script>
+google.maps.event.addDomListener(window, 'load', initialize);
 
-  </body>
-</html>
+</script>
