@@ -19,11 +19,12 @@ function buscar() {
     $('#error_buscar').append("<p class='error_p'>El campo de dirección tiene que estar relleno<p>");
   }
   else {
-    geocoder.geocode( { 'direccion': direccion }, function(results, status) {
+    geocoder.geocode( { 'address': direccion }, function(results, status) {
       if (status == google.maps.GeocoderStatus.OK) {
         var latitude = results[0].geometry.location.lat();
         var longitude = results[0].geometry.location.lng();
         alert(latitude);
+        console.log(longitude);
       }
     });
   }
