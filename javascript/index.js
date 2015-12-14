@@ -26,8 +26,8 @@ function buscar() {
         var latitud = results[0].geometry.location.lat();
         var longitud = results[0].geometry.location.lng();
         //Enviamos la latitud y la longitud al php
-        $.post('bucar.php', { latitud: latitud, longitud: longitud, tipo: tipo });
-        $.get("../php/bucar.php", function(data) {
+        $.post('php/buscar.php', { latitud: latitud, longitud: longitud, tipo: tipo });
+        $.get("php/buscar.php", function(data) {
           x = data;
           console.log(x);
         });
@@ -49,8 +49,8 @@ function exito(position){
   var latitud = position.coords.latitude;
   var longitud = position.coords.longitude;
   //Enviamos la latitud y la longitud al php
-  $.post('../php/bucar.php', { latitud: latitud, longitud: longitud, tipo: tipo });
-  $.get("../php/bucar.php", function(data) {
+  $.post('php/buscar.php', { latitud: latitud, longitud: longitud, tipo: tipo });
+  $.get("php/buscar.php", function(data) {
       x = data;
       console.log(x);
   });
