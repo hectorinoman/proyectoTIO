@@ -28,10 +28,11 @@ function buscar() {
 	       tipo = document.getElementById('tipo').value;
          $.ajax({
            type: 'POST',
+	   dataType: 'json',
            data: {'tipo': tipo },
            url: 'php/buscar2.php',
            success: function (response) {
-             if(response == 1){
+             if(response.success){
                alert("bien");
              }
              else {

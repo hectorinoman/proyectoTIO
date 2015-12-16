@@ -18,13 +18,20 @@ mysql_select_db($dbname) or die('No se pudo seleccionar la base de datos');
 
 
 $tipo = $_POST['tipo'];
-
-$query = "SELECT * FROM ".$tipo." WHERE NOMBRE = 'Campo de Barranco Grande' ";
+$jsondata = array();
+$query = "SELECT * FROM ".$tipo."";
 $result = mysql_query($query);
 if(mysql_num_rows($result) > 0) {
-	echo 1;
+	$jsondata["datos"] = array();
+	$jsondata["success"] = true;
+	while($row = mysql_fetch_assoc($result)){
+		$jsondata["datos"][] = $row;
+	} 
 }
 else{
-	echo 2;
+	$jsondata["success"] = false;
 }
+
+header('Content.type: application/json; charset = utf-8');
+echo json_encode($jsondata, JSON_FORCE_OBJECT);
 ?>
