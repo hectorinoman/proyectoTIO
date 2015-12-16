@@ -28,18 +28,17 @@ function buscar() {
 	       tipo = document.getElementById('tipo').value;
          $.ajax({
            type: 'POST',
-           datatype: 'json',
            data: {'tipo': tipo },
-           url: 'php/buscar.php',
+           url: 'php/buscar2.php',
            success: function (response) {
-             if(response.success){
-               alert("bieen");
+             if(response == 1){
+               alert("bien");
              }
              else {
-               alert(mal);
+               alert("mal");
              }
            }
-         })
+         });
          return false;
       }
     });
