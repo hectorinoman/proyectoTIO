@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
+    <script type="text/javascript" src="map.js"></script>
+  </head>
+  <body>
+     <h1>Conversor dirección a coordenadas y viceversa</h1>
+     <div>
+       <h2>Conversor dirección a coordenadas</h2>
+       Indique una dirección: <input type="text" id="address-input">
+       <button onclick="searchAddress();">Enviar</button>
+<br>
+       Coordenadas:<input type="text" id="coordenadas"/>
+<br>
+       Latitud:<input type="text" id="Latitud"/>
+<br>
+       Longitud:<input type="text" id="Longitud"/>
+
+     </div>
+
+     <div>
+       <h2>Conversor de coordenadas a dirección</h2>
+       Indique unas coordenadas: <input type="text" id="address-input2">
+       <button onclick="searchAddress2();">Enviar</button>
+       <br>
+              Sitio:<input type="text" id="call"/>
+       <br>
+              Ciudad:<input type="text" id="ciu"/>
+        <br>
+             Region:<input type="text" id="reg"/>
+        <br>
+             Comunidad:<input type="text" id="com"/>
+        <br>
+             Pais:<input type="text" id="pai"/>
+     </div>
+
+   </body>
+ </html>
