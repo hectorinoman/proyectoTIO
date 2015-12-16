@@ -46,9 +46,22 @@ var bounds = new google.maps.LatLngBounds();
 var markersArray = [];
 
 var origin1 = new google.maps.LatLng(55.930, -3.118);
-var origin2 = 'Greenwich, England';
+//var origin2 = 'Greenwich, England';
+
+
+
+
+
+
 var destinationA = 'Stockholm, Sweden';
 var destinationB = new google.maps.LatLng(50.087, 14.421);
+//var destinationC = 'LOLO, Chachi';
+var destinationD = new google.maps.LatLng(60.087, 18.421);
+//var destinationE = 'Micasa, Swed';
+var destinationF = new google.maps.LatLng(40.087, 15.421);
+
+
+
 
 var destinationIcon = 'http://www.google.com/mapfiles/dd-end.png';
 var originIcon = 'http://www.google.com/mapfiles/dd-start.png';
@@ -66,8 +79,8 @@ function calculateDistances() {
   var service = new google.maps.DistanceMatrixService();
   service.getDistanceMatrix(
     {
-      origins: [origin1, origin2],
-      destinations: [destinationA, destinationB],
+      origins: [origin1],
+      destinations: [destinationA, destinationB, destinationD, destinationF],
       travelMode: google.maps.TravelMode.DRIVING,
       unitSystem: google.maps.UnitSystem.METRIC,
       avoidHighways: false,
@@ -76,7 +89,7 @@ function calculateDistances() {
 }
 
 function callback(response, status) {
-
+var ordenacion=[];
   if (status != google.maps.DistanceMatrixStatus.OK) {
     alert('Error was: ' + status);
   } else {
@@ -98,6 +111,8 @@ function callback(response, status) {
       
       
       for (var j = 0; j < results.length; j++) {
+        ordenacion[j]=results[j].distance.text;   //ordenaaaaaaaa
+        
         var item=list.appendChild(document.createElement('li'));
         item.appendChild(document.createTextNode(' to '));
         //destination-marker
@@ -107,8 +122,12 @@ function callback(response, status) {
                                                   ' in ',
                                                   results[j].duration.text
                                                   ].join('')));
-
+                                                  
+                                                  
       }
+
+      alert(ordenacion.sort());
+
     }
   }
 }
