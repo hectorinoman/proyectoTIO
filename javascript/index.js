@@ -1,4 +1,4 @@
-var btnPostact, direccion, btnBuscar, geocoder, tipo, x;
+var btnPostact, direccion, btnBuscar, geocoder, tipo;
 
 //funcion que inicialia las variables y los EventListeners
 function initialize() {
@@ -25,13 +25,22 @@ function buscar() {
       if (status == google.maps.GeocoderStatus.OK) {
         var latitud = results[0].geometry.location.lat();
         var longitud = results[0].geometry.location.lng();
-	tipo = document.getElementById('tipo').value;
-        //Enviamos la latitud y la longitud al php
-        $.post('php/buscar.php', { 'latitud': latitud, 'longitud': longitud, 'tipo': tipo });
-        $.get("php/buscar.php", function(data) {
-          x = data;
-          console.log(x);
-        });
+	       tipo = document.getElementById('tipo').value;
+         $.ajax({
+           type: 'POST',
+           datatype: 'json',
+           data: {'tipo': tipo },
+           url: 'php/buscar.php',
+           success: function (response) {
+             if(response.success){
+               alert("bieen");
+             }
+             else {
+               alert(mal);
+             }
+           }
+         })
+         return false;
       }
     });
   }
@@ -50,12 +59,6 @@ function exito(position){
   var latitud = position.coords.latitude;
   var longitud = position.coords.longitude;
   tipo = document.getElementById('tipo').value;
-  //Enviamos la latitud y la longitud al php
-  $.post('php/buscar.php', { 'latitud': latitud, 'longitud': longitud, 'tipo': tipo });
-  $.get("php/buscar.php", function(data) {
-      x = data;
-      console.log(x);
-  });
 }
 
 function fracaso(){
