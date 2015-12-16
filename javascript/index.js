@@ -5,7 +5,7 @@ function initialize() {
   btnPosact = document.getElementById('btn_posact');
   btnBuscar = document.getElementById('btn_buscar');
   geocoder =  new google.maps.Geocoder();
-  tipo = document.getElementById('tipo').value;
+  //tipo = document.getElementById('tipo').value;
   //EventListeners
   btnBuscar.addEventListener("click", buscar);
   btnPosact.addEventListener("click", localizacion);
@@ -25,8 +25,9 @@ function buscar() {
       if (status == google.maps.GeocoderStatus.OK) {
         var latitud = results[0].geometry.location.lat();
         var longitud = results[0].geometry.location.lng();
+	tipo = document.getElementById('tipo').value;
         //Enviamos la latitud y la longitud al php
-        $.post('php/buscar.php', { latitud: latitud, longitud: longitud, tipo: tipo });
+        $.post('php/buscar.php', { 'latitud': latitud, 'longitud': longitud, 'tipo': tipo });
         $.get("php/buscar.php", function(data) {
           x = data;
           console.log(x);
@@ -48,8 +49,9 @@ function localizacion(){
 function exito(position){
   var latitud = position.coords.latitude;
   var longitud = position.coords.longitude;
+  tipo = document.getElementById('tipo').value;
   //Enviamos la latitud y la longitud al php
-  $.post('php/buscar.php', { latitud: latitud, longitud: longitud, tipo: tipo });
+  $.post('php/buscar.php', { 'latitud': latitud, 'longitud': longitud, 'tipo': tipo });
   $.get("php/buscar.php", function(data) {
       x = data;
       console.log(x);

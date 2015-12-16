@@ -27,6 +27,7 @@ if(mysql_num_rows($result) > 0) {
 else{
         echo "maaal";
 }
+echo $tipo;
 // Liberar resultados
 mysql_free_result($result);
 ?>
