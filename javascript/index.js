@@ -36,12 +36,14 @@ function buscar() {
                alert("bien");
 		var borrar_div = document.getElementById("inicio");
                 borrar_div.parentNode.removeChild(borrar_div);
+		$("#resultado").append("<a href='mapa.html'>Ver en mapa</a>");
 		for(var i in response.datos){
 			var nombre = response.datos[i].NOMBRE;
 			var latitud = response.datos[i].LATITUD;
 			var longitud = response.datos[i].LONGITUD;
 			var div = "<div>"+nombre+" "+latitud+" "+longitud+"</div>";
 			$(div).appendTo("#resultado");
+		
 		}
              }
              else {
