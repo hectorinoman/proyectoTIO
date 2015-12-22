@@ -1,10 +1,35 @@
+var tipo = "FUTBOL";
 var map;
 var geocoder;
 var bounds = new google.maps.LatLngBounds();
 var markersArray = [];
 var origin1 = new google.maps.LatLng(28.4631488, -16.270222);
+var total = [];
 //var origin2 = 'Greenwich, England';
 //var destinationA = 'Stockholm, Sweden';
+$.ajax({
+           type: 'POST',
+           dataType: 'json',
+           data: {'tipo': tipo },
+           url: 'php/buscar2.php',
+           success: function (response) {
+             if(response.success){
+               alert("bien");
+                for(var i in response.datos){
+                        //var nombre = response.datos[i].NOMBRE;
+                        var latitud = response.datos[i].LATITUD;
+                        var longitud = response.datos[i].LONGITUD;
+                        //var div = "<div>"+nombre+" "+latitud+" "+longitud+"</div>";
+                        //$(div).appendTo("#resultado");
+			var destinationB = new google.maps.LatLng(latitud, longitud);
+			total.push(destinationB);
+                }
+       	     }
+	     else {
+               alert("mal");
+             }
+           }
+});
 var destinationB = new google.maps.LatLng(28.4625658333, -16.2615531778);
 //var destinationC = 'LOLO, Chachi';
 var destinationD = new google.maps.LatLng(28.4601960556, -16.2539577278);
@@ -25,7 +50,7 @@ function calculateDistances() {
   service.getDistanceMatrix(
     {
       origins: [origin1],
-      destinations: [destinationB, destinationD, destinationF],
+      destinations: total,
       travelMode: google.maps.TravelMode.DRIVING,
       unitSystem: google.maps.UnitSystem.METRIC,
       avoidHighways: false,
