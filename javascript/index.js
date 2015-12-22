@@ -34,9 +34,13 @@ function buscar() {
            success: function (response) {
              if(response.success){
                alert("bien");
+		var borrar_div = document.getElementById("inicio");
+                borrar_div.parentNode.removeChild(borrar_div);
 		for(var i in response.datos){
 			var nombre = response.datos[i].NOMBRE;
-			var div = "<div>"+nombre+"</div>";
+			var latitud = response.datos[i].LATITUD;
+			var longitud = response.datos[i].LONGITUD;
+			var div = "<div>"+nombre+" "+latitud+" "+longitud+"</div>";
 			$(div).appendTo("#resultado");
 		}
              }
