@@ -109,12 +109,24 @@ var ordenacion=[];
       //a list for the destinations
       var list=row.appendChild(document.createElement('ul'));
       
+        
+      for(var k=0; k<results.length; k++){
+
+        ordenacion[k]=results[k].distance.text;   //ordenaaaaaaaa
+        ordenacion.sort();
+      
+      }
+      for(var w=0; w<results.length; w++){
+        
       
       for (var j = 0; j < results.length; j++) {
-        ordenacion[j]=results[j].distance.text;   //ordenaaaaaaaa
+        //ordenacion[j]=results[j].distance.text;   //ordenaaaaaaaa
+        //ordenacion.sort();
+        //results = ordenacion;
+        if(ordenacion[w]==results[j].distance.text){
         
         var item=list.appendChild(document.createElement('li'));
-        item.appendChild(document.createTextNode(' to '));
+        item.appendChild(document.createTextNode(' Destinos: '));
         //destination-marker
         addMarker(destinations[j], true,item.appendChild(document.createElement('code')));
         item.appendChild(document.createTextNode([': ',
@@ -123,7 +135,10 @@ var ordenacion=[];
                                                   results[j].duration.text
                                                   ].join('')));
                                                   
-                                                  
+        }
+        
+        
+      }
       }
 
       alert(ordenacion.sort());
