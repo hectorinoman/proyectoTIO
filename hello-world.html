@@ -45,7 +45,7 @@ var geocoder;
 var bounds = new google.maps.LatLngBounds();
 var markersArray = [];
 
-var origin1 = new google.maps.LatLng(55.930, -3.118);
+var origin1 = new google.maps.LatLng(28.4631488, -16.270222);
 //var origin2 = 'Greenwich, England';
 
 
@@ -53,12 +53,12 @@ var origin1 = new google.maps.LatLng(55.930, -3.118);
 
 
 
-var destinationA = 'Stockholm, Sweden';
-var destinationB = new google.maps.LatLng(50.087, 14.421);
+//var destinationA = 'Stockholm, Sweden';
+var destinationB = new google.maps.LatLng(28.4625658333, -16.2615531778);
 //var destinationC = 'LOLO, Chachi';
-var destinationD = new google.maps.LatLng(60.087, 18.421);
+var destinationD = new google.maps.LatLng(28.4601960556, -16.2539577278);
 //var destinationE = 'Micasa, Swed';
-var destinationF = new google.maps.LatLng(40.087, 15.421);
+var destinationF = new google.maps.LatLng(28.45921775, -16.2803861333);
 
 
 
@@ -68,8 +68,8 @@ var originIcon = 'http://www.google.com/mapfiles/dd-start.png';
 
 function initialize() {
   var opts = {
-    center: new google.maps.LatLng(55.53, 9.4),
-    zoom: 10
+    center: new google.maps.LatLng(28.4631488, -16.270222),
+    zoom: 13
   };
   map = new google.maps.Map(document.getElementById('map-canvas'), opts);
   geocoder = new google.maps.Geocoder();
@@ -80,7 +80,7 @@ function calculateDistances() {
   service.getDistanceMatrix(
     {
       origins: [origin1],
-      destinations: [destinationA, destinationB, destinationD, destinationF],
+      destinations: [destinationB, destinationD, destinationF],
       travelMode: google.maps.TravelMode.DRIVING,
       unitSystem: google.maps.UnitSystem.METRIC,
       avoidHighways: false,
