@@ -34,6 +34,11 @@ function buscar() {
            success: function (response) {
              if(response.success){
                alert("bien");
+		for(var i in response.datos){
+			var nombre = response.datos[i].NOMBRE;
+			var div = "<div>"+nombre+"</div>";
+			$(div).appendTo("#resultado");
+		}
              }
              else {
                alert("mal");
