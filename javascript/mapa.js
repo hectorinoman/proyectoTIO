@@ -7,6 +7,10 @@ var origin1 = new google.maps.LatLng(28.4631488, -16.270222);
 var total = [];
 //var origin2 = 'Greenwich, England';
 //var destinationA = 'Stockholm, Sweden';
+$('#btn_buscar').on('click', function(){
+	var borrar_div = document.getElementById("formulario");
+	borrar_div.parentNode.removeChild(borrar_div);
+});
 $.ajax({
            type: 'POST',
            dataType: 'json',
