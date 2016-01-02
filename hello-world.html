@@ -1,10 +1,8 @@
 <html>
 	<body>
+	  <body onload="calculateDistances();">
 <script src="https://maps.googleapis.com/maps/api/js?v=3&.js"></script>
     <div id="content-pane">
-      <button type="button" onclick="calculateDistances();">
-        Calculate distances
-      </button>
       <div id="outputDiv"></div>
     </div>
     <div id="map-canvas"></div>
@@ -54,7 +52,7 @@ var origin1 = new google.maps.LatLng(28.4631488, -16.270222);
 
 
 //var destinationA = 'Stockholm, Sweden';
-var destinationB = new google.maps.LatLng(28.4625658333, -16.2615531778);
+var destinationB = new google.maps.LatLng(28.516388, -16.364078);
 //var destinationC = 'LOLO, Chachi';
 var destinationD = new google.maps.LatLng(28.4601960556, -16.2539577278);
 //var destinationE = 'Micasa, Swed';
@@ -112,10 +110,13 @@ var ordenacion=[];
         
       for(var k=0; k<results.length; k++){
 
-        ordenacion[k]=results[k].distance.text;   //ordenaaaaaaaa
-        ordenacion.sort();
+        ordenacion[k]=results[k].distance.text;
+        ordenacion[k].replace('km','');
+        
       
       }
+      ordenacion.sort();
+      //alert(ordenacion);
       for(var w=0; w<results.length; w++){
         
       
