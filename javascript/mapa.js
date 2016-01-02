@@ -61,6 +61,11 @@ function calculateDistances() {
       avoidTolls: false
     }, callback);
 }
+
+function sortnumber(a,b){
+  return a-b;
+  
+}
 function callback(response, status) {
 var ordenacion=[];
   if (status != google.maps.DistanceMatrixStatus.OK) {
@@ -71,6 +76,7 @@ var ordenacion=[];
     var outputDiv = document.getElementById('outputDiv');
     outputDiv.innerHTML = '';
     deleteOverlays();
+  var ordenacion2=[];
     for (var i = 0; i < origins.length; i++) {
       //create a new "row"
       var row=outputDiv.appendChild(document.createElement('div'));
@@ -81,12 +87,34 @@ var ordenacion=[];
       //a list for the destinations
       var list=row.appendChild(document.createElement('ul'));
       
+        
+      for(var k=0; k<results.length; k++){
+        var x = (results[k].distance.text.replace(" km",""));
+        x = parseFloat(x.replace(",","."));
+        ordenacion[k]=x;   //ordenaaaaaaaa
+      }
       
+      ordenacion.sort(sortnumber);
+      //alert(ordenacion.join(","));  
+      
+      for(var q=0; q<ordenacion.length; q++){
+        var a=ordenacion[q].toString();
+        a = a.replace(".",",");
+        a= a.concat(" km");
+        ordenacion[q]=a;
+      }
+      
+      
+      for(var w=0; w<results.length; w++){
+        
       for (var j = 0; j < results.length; j++) {
-        ordenacion[j]=results[j].distance.text;   //ordenaaaaaaaa
+        //ordenacion[j]=results[j].distance.text;   //ordenaaaaaaaa
+        //ordenacion.sort();
+        //results = ordenacion;
+        if(ordenacion[w]==results[j].distance.text){
         
         var item=list.appendChild(document.createElement('li'));
-        item.appendChild(document.createTextNode(' to '));
+        item.appendChild(document.createTextNode(' Destinos: '));
         //destination-marker
         addMarker(destinations[j], true,item.appendChild(document.createElement('code')));
         item.appendChild(document.createTextNode([': ',
@@ -95,12 +123,15 @@ var ordenacion=[];
                                                   results[j].duration.text
                                                   ].join('')));
                                                   
-                                                  
+        }
+        
+        
       }
-      alert(ordenacion.sort());
+      }
     }
   }
 }
+
 function addMarker(location, isDestination,node) {
   var icon;
   if (isDestination) {
