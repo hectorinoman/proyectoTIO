@@ -126,25 +126,23 @@ var ordenacion=[];
 						
  
         //destination-marker
-	item2.appendChild(document.createTextNode(['Nombre: ',
-							nombres[j],
-						  ' '
+	item2.appendChild(document.createTextNode([
+							nombres[j]
+						 
 						   ]));
         addMarker(destinations[j], true, item3.appendChild(document.createElement('code')));
 							
-        item4.appendChild(document.createTextNode(['Distancia ',
+        item4.appendChild(document.createTextNode([
                                                   results[j].distance.text,
 						  ]));
 	
-        item5.appendChild(document.createTextNode(['Tiempo ',
+        item5.appendChild(document.createTextNode([
                                                   results[j].duration.text,
 						  ]));
 
-        item6.appendChild(document.createTextNode(['Direccion ',
+        item6.appendChild(document.createTextNode([
                                                   direccion[j],
-						  ' ',
 						  localizacion[j],
-						  ' ',
 					 	  codigoPostal[j]
 						  ]));
 
