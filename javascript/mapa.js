@@ -3,6 +3,13 @@ var bounds = new google.maps.LatLngBounds();
 var markersArray = [];
 var total = [];
 var nombres = [] //almacena los nombres de las instalaciones
+var localizacion = [];
+var direccion = [];
+var codigoPostal = [];
+var telefono = [];
+var instalaciones = [];
+var gradas = [];
+var horario = [];
 var dire;
 var geocoder = new google.maps.Geocoder();
 var lati = 28.4631488;
@@ -32,6 +39,20 @@ $.ajax({
                 for(var i in response.datos){
                         var nombre = response.datos[i].NOMBRE;
 			nombres.push(nombre);
+			var loc = response.datos[i].LOCALIZACION;
+			localizacion.push(loc);
+			var direc = response.datos[i].DIRECCION;
+			direccion.push(direc);
+			var cod = response.datos[i].CODIGO_POSTAL;
+			codigoPostal.push(cod);
+			var tele = response.datos[i].TELEFONO;
+			telefono.push(tele);
+			var instala = response.datos[i].INSTALACIONES;
+			instalaciones.push(instala);
+			var grad = response.datos[i].GRADAS;
+			gradas.push(grad);
+			var hora = response.datos[i].HORARIO;
+			horario.push(hora);
                         var latitud = response.datos[i].LATITUD;
                         var longitud = response.datos[i].LONGITUD;
                         //var div = "<div>"+nombre+" "+latitud+" "+longitud+"</div>";
@@ -95,21 +116,58 @@ var ordenacion=[];
         //results = ordenacion;
         if(ordenacion[w]==results[j].distance.text){
         
-        var item=list.appendChild(document.createElement('li'));
-        item.appendChild(document.createTextNode(' Destinos: '));
+        var item = list.appendChild(document.createElement('li'));
+	var item2 = item.appendChild(document.createElement('h4'));
+	var item3 = item.appendChild(document.createElement('p'));
+	var item4 = item.appendChild(document.createElement('p'));
+	var item5 = item.appendChild(document.createElement('p'));
+	var item6 = item.appendChild(document.createElement('p'));
+	var item7 = item.appendChild(document.createElement('p'));
+						
+ 
         //destination-marker
-        addMarker(destinations[j], true,item.appendChild(document.createElement('code')));
-        item.appendChild(document.createTextNode([': ',
+	item2.appendChild(document.createTextNode(['Nombre: ',
+							nombres[j],
+						  ' '
+						   ]));
+        addMarker(destinations[j], true, item3.appendChild(document.createElement('code')));
+							
+        item4.appendChild(document.createTextNode(['Distancia ',
                                                   results[j].distance.text,
-                                                  ' in ',
+						  ]));
+	
+        item5.appendChild(document.createTextNode(['Tiempo ',
                                                   results[j].duration.text,
-						  'nombre:',
-						   nombres[j]
-                                                  ].join('')));
-                                                  
+						  ]));
+
+        item6.appendChild(document.createTextNode(['Direccion ',
+                                                  direccion[j],
+						  ' ',
+						  localizacion[j],
+						  ' ',
+					 	  codigoPostal[j]
+						  ]));
+
+/*
+                                                  ' tiempo ',
+						   results[j].distance.text,
+						  'localizacion: ',
+						   localizacion[j],
+						  'direccion: ',
+						   direccion[j],
+						  'codigo postal: ',
+						   codigoPostal[j],
+						  'telefono: ',
+						   telefono[j],
+						   'instalaciones: ',
+						   instalaciones[j],
+						   'gradas: ',
+						   gradas[j],
+						   'horario: ',
+						   horario[j]
+                                                  ].join(' ')));
+  */                                                
         }
-        
-        
       }
       }
     }
@@ -207,9 +265,9 @@ function addMarker(location, isDestination,node) {
         icon: icon
       });
       markersArray.push(marker);
-      node.appendChild(document.createTextNode('('+marker.getPosition().toUrlValue()+')'));
+      node.appendChild(document.createTextNode("Acercar"));
       node.setAttribute('title',location);
-      node.style.background=(isDestination)?'red':'green';
+      node.style.background=(isDestination)?'#2976E9':'green';
       google.maps.event.addDomListener(node,'click',function(){map.panTo(marker.getPosition())})
     } else {
       alert('Geocode was not successful for the following reason: '
