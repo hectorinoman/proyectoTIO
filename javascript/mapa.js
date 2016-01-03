@@ -1,4 +1,5 @@
 var map;
+var index = 9;
 var bounds = new google.maps.LatLngBounds();
 var markersArray = [];
 var total = [];
@@ -14,15 +15,48 @@ var dire;
 var geocoder = new google.maps.Geocoder();
 var lati = 28.4631488;
 var longi = -16.270222;
-var origin1 = new google.maps.LatLng(lati, longi);
+var origin1 = new google.maps.LatLng(28.277603, -16.625603);
 var lugar = document.getElementById("lugar");
 lugar.addEventListener("change", busqueda);
 var btn_buscar = document.getElementById("btn_buscar");
 btn_buscar.addEventListener("click", mostrar);
 
+$("#btn_posact").mousedown(function(){
+  if (navigator.geolocation) {
+console.log("dentro if");
+    	navigator.geolocation.getCurrentPosition(function(position){
+	console.log("dentroo de lo del if");
+	lati = position.coords.latitude;
+	longi = position.coords.longitude;
+	origin1 = new google.maps.LatLng(lati, longi);
+	console.log("oriiigin" + origin1);
+	google.maps.event.addDomListener(window, 'load', initialize(28.2803819,-16.4359493));
+    });
+  } else {
+//	alert("petooo");
+    $('#error_buscar').append("<p class='error_p'>La geolocalización no es soportada por este navegador<p>");
+  }
+});
+
+function exito(position){
+ //alert("dentro de exito");
+  lati = position.coords.latitude;
+  longi = position.coords.longitude;
+  alert(lati + "," +longi);
+  origin1 = new google.maps.LatLng(lati, longi);
+alert("origiiin1" + origin1);
+  google.maps.event.addDomListener(window, 'load', initialize(28.2803819,-16.4359493));
+}
+
+function fracaso(){
+  $('#error_buscar').append("<p class='error_p'>No se pudo geolocalizar su posición<p>");
+}
+
 $("#tipo").change(function(){
 	var tipo = document.getElementById("tipo").value;
 	
+	var boton2 = document.getElementById("btn_posact");
+	boton2.addEventListener("click", calculateDistances);
 	var boton = document.getElementById("btn_buscar");
 	boton.addEventListener("click",calculateDistances);
 
@@ -66,6 +100,7 @@ $.ajax({
              }
            }
 });
+
 function callback(response, status) {
 var ordenacion=[];
   if (status != google.maps.DistanceMatrixStatus.OK) {
@@ -108,9 +143,9 @@ var ordenacion=[];
       }
       
       
-      for(var w=0; w<results.length; w++){
+      for(var w=0; w<index; w++){
         
-      for (var j = 0; j < results.length; j++) {
+      for (var j = 0; j < index; j++) {
         //ordenacion[j]=results[j].distance.text;   //ordenaaaaaaaa
         //ordenacion.sort();
         //results = ordenacion;
@@ -173,6 +208,10 @@ var ordenacion=[];
 }
 
 function calculateDistances() {
+
+var borrar_div = document.getElementById("formulario");
+borrar_div.parentNode.removeChild(borrar_div);
+  alert("dentro de calculatedistances");
   var service = new google.maps.DistanceMatrixService();
   service.getDistanceMatrix(
     {
@@ -187,19 +226,13 @@ function calculateDistances() {
 
 
 });
-
-//var origin2 = 'Greenwich, England';
-//var destinationA = 'Stockholm, Sweden';
 function mostrar(){
 
 	alert("lati y longi"+ lati +","+longi);
-	var borrar_div = document.getElementById("formulario");
-	borrar_div.parentNode.removeChild(borrar_div);
-	//var titulo = document.createElement("h4");
-	//var contenido = document.createTextNode("Resultados");
-//	titulo.appendChild(contenido);
+//	var borrar_div = document.getElementById("formulario");
+//	borrar_div.parentNode.removeChild(borrar_div);
 	origin1 = new google.maps.LatLng(lati, longi);
-	alert("origiiin1"+origin1);
+	//alert("origiiin1"+origin1);
 	google.maps.event.addDomListener(window, 'load', initialize(28.2803819,-16.4359493));
 
 }
@@ -226,6 +259,10 @@ function busqueda(){
   	}
 	});	
 }
+
+
+//Calcula la posicion actual del usuario.
+
 var destinationB = new google.maps.LatLng(28.4625658333, -16.2615531778);
 //var destinationC = 'LOLO, Chachi';
 var destinationD = new google.maps.LatLng(28.4601960556, -16.2539577278);
@@ -236,7 +273,7 @@ var originIcon = 'http://www.google.com/mapfiles/dd-start.png';
 function initialize(a, b) {
   var opts = {
     center: new google.maps.LatLng(a, b),
-    zoom: 13
+    zoom: 10
   };
   map = new google.maps.Map(document.getElementById('map-canvas'), opts);
 }
@@ -281,4 +318,5 @@ function deleteOverlays() {
 }
 
 google.maps.event.addDomListener(window, 'load', initialize(lati,longi));
+
 

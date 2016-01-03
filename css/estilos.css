@@ -28,10 +28,9 @@ label {
   margin-left: 5%;
 }
 
-#formulario_buscar {
-  margin-top: 3%;
+#formulario {
+padding-top: 30%;
 }
-
 .error_p {
   color:rgba(221, 8, 8, 1);
   padding-left: 11%;
@@ -49,8 +48,7 @@ html, body {
       #content-pane {
         float:right;
         width:48%;
-        padding-left: 2%;
-	padding-top: 10%;
+        
       }
       #outputDiv > div:nth-child(n+2){
          border-top:1px dotted silver;
