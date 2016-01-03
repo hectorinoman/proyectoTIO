@@ -2,6 +2,7 @@ var map;
 var bounds = new google.maps.LatLngBounds();
 var markersArray = [];
 var total = [];
+var nombres = [] //almacena los nombres de las instalaciones
 var dire;
 var geocoder = new google.maps.Geocoder();
 var lati = 28.4631488;
@@ -13,7 +14,6 @@ var btn_buscar = document.getElementById("btn_buscar");
 btn_buscar.addEventListener("click", mostrar);
 
 $("#tipo").change(function(){
-	
 	var tipo = document.getElementById("tipo").value;
 	
 	var boton = document.getElementById("btn_buscar");
@@ -30,7 +30,8 @@ $.ajax({
              if(response.success){
                alert("bien");
                 for(var i in response.datos){
-                        //var nombre = response.datos[i].NOMBRE;
+                        var nombre = response.datos[i].NOMBRE;
+			nombres.push(nombre);
                         var latitud = response.datos[i].LATITUD;
                         var longitud = response.datos[i].LONGITUD;
                         //var div = "<div>"+nombre+" "+latitud+" "+longitud+"</div>";
@@ -55,13 +56,16 @@ var ordenacion=[];
     outputDiv.innerHTML = '';
     deleteOverlays();
   var ordenacion2=[];
+    var titulo = outputDiv.appendChild(document.createElement('h4'));
+	var contenido = document.createTextNode("Resultados");
+    titulo.appendChild(contenido);
     for (var i = 0; i < origins.length; i++) {
       //create a new "row"
       var row=outputDiv.appendChild(document.createElement('div'));
       
       var results = response.rows[i].elements;
       //origin-marker
-      addMarker(origins[i], false,row.appendChild(document.createElement('code')));
+      addMarker(origins[i], false,row.appendChild(document.createElement('code2')));
       //a list for the destinations
       var list=row.appendChild(document.createElement('ul'));
       
@@ -98,7 +102,9 @@ var ordenacion=[];
         item.appendChild(document.createTextNode([': ',
                                                   results[j].distance.text,
                                                   ' in ',
-                                                  results[j].duration.text
+                                                  results[j].duration.text,
+						  'nombre:',
+						   nombres[j]
                                                   ].join('')));
                                                   
         }
@@ -133,13 +139,18 @@ function mostrar(){
 	alert("lati y longi"+ lati +","+longi);
 	var borrar_div = document.getElementById("formulario");
 	borrar_div.parentNode.removeChild(borrar_div);
+	//var titulo = document.createElement("h4");
+	//var contenido = document.createTextNode("Resultados");
+//	titulo.appendChild(contenido);
 	origin1 = new google.maps.LatLng(lati, longi);
 	alert("origiiin1"+origin1);
 	google.maps.event.addDomListener(window, 'load', initialize(28.2803819,-16.4359493));
+
 }
 
 function busqueda(){ 
-	dire = document.getElementById("lugar").value;	
+	dire = document.getElementById("lugar").value;
+	dire = dire + " Tenerife";	
 	geocoder.geocode({address: dire}, function(results, status){
 	if (status == google.maps.GeocoderStatus.OK) {
 	var myResult =results[0].geometry.location;
