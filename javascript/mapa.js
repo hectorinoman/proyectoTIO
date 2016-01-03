@@ -1,9 +1,16 @@
 var map;
-var geocoder;
 var bounds = new google.maps.LatLngBounds();
 var markersArray = [];
-var origin1 = new google.maps.LatLng(28.4631488, -16.270222);
 var total = [];
+var dire;
+var geocoder = new google.maps.Geocoder();
+var lati = 28.4631488;
+var longi = -16.270222;
+var origin1 = new google.maps.LatLng(lati, longi);
+var lugar = document.getElementById("lugar");
+lugar.addEventListener("change", busqueda);
+var btn_buscar = document.getElementById("btn_buscar");
+btn_buscar.addEventListener("click", mostrar);
 
 $("#tipo").change(function(){
 	
@@ -13,8 +20,6 @@ $("#tipo").change(function(){
 	boton.addEventListener("click",calculateDistances);
 
 	alert(tipo);
-//	var borrar_div = document.getElementById("formulario");
-//	borrar_div.parentNode.removeChild(borrar_div);
 
 $.ajax({
            type: 'POST',
@@ -123,12 +128,37 @@ function calculateDistances() {
 
 //var origin2 = 'Greenwich, England';
 //var destinationA = 'Stockholm, Sweden';
-$('#btn_buscar').on('click', function(){
+function mostrar(){
 
-	calculateDistances();
-});
+	alert("lati y longi"+ lati +","+longi);
+	var borrar_div = document.getElementById("formulario");
+	borrar_div.parentNode.removeChild(borrar_div);
+	origin1 = new google.maps.LatLng(lati, longi);
+	alert("origiiin1"+origin1);
+	google.maps.event.addDomListener(window, 'load', initialize(28.2803819,-16.4359493));
+}
 
+function busqueda(){ 
+	dire = document.getElementById("lugar").value;	
+	geocoder.geocode({address: dire}, function(results, status){
+	if (status == google.maps.GeocoderStatus.OK) {
+	var myResult =results[0].geometry.location;
+      	myResult=myResult.toString();
+      
+      	var split1 = myResult.split('(');
+      	var split2 = split1[1].split(')');
+      	var splits = split2[0].split(',');
+	lati = splits[0];
+	longi = splits[1];
 
+        }
+
+	else { // if status value is not equal to "google.maps.GeocoderStatus.OK"
+    	// warning message
+    	alert("The Geocode was not successful for the following reason: " + status);
+  	}
+	});	
+}
 var destinationB = new google.maps.LatLng(28.4625658333, -16.2615531778);
 //var destinationC = 'LOLO, Chachi';
 var destinationD = new google.maps.LatLng(28.4601960556, -16.2539577278);
@@ -136,13 +166,12 @@ var destinationD = new google.maps.LatLng(28.4601960556, -16.2539577278);
 var destinationF = new google.maps.LatLng(28.45921775, -16.2803861333);
 var destinationIcon = 'http://www.google.com/mapfiles/dd-end.png';
 var originIcon = 'http://www.google.com/mapfiles/dd-start.png';
-function initialize() {
+function initialize(a, b) {
   var opts = {
-    center: new google.maps.LatLng(28.4631488, -16.270222),
+    center: new google.maps.LatLng(a, b),
     zoom: 13
   };
   map = new google.maps.Map(document.getElementById('map-canvas'), opts);
-  geocoder = new google.maps.Geocoder();
 }
 
 function sortnumber(a,b){
@@ -183,4 +212,6 @@ function deleteOverlays() {
   }
   markersArray = [];
 }
-google.maps.event.addDomListener(window, 'load', initialize);
+
+google.maps.event.addDomListener(window, 'load', initialize(lati,longi));
+
