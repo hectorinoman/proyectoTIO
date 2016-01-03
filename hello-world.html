@@ -145,7 +145,7 @@ var ordenacion=[];
         var item=list.appendChild(document.createElement('li'));
         item.appendChild(document.createTextNode(' Destinos: '));
         //destination-marker
-        //addMarker(destinations[j], true,item.appendChild(document.createElement('code')));
+        addMarker(destinations[j], true,item.appendChild(document.createElement('code')));
         item.appendChild(document.createTextNode([': ',
                                                   results[j].distance.text,
                                                   ' in ',
@@ -174,11 +174,13 @@ function addMarker(location, isDestination,node) {
     if (status == google.maps.GeocoderStatus.OK) {
       bounds.extend(results[0].geometry.location);
       map.fitBounds(bounds);
+      
       var marker = new google.maps.Marker({
-        map: map,
+        //map: map,
         position: results[0].geometry.location, //destinationB,  //prueba con destination
-        icon: icon
+        //icon: icon
       });
+      
       
       
       
