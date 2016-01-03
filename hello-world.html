@@ -66,7 +66,7 @@ var destination3 = new google.maps.LatLng(28.45921775, -16.2803861333);
 
 
 
-var destinationIcon = 'http://www.google.com/mapfiles/dd-end.png';
+var destinationIcon = 'http://nuriamarchcomunicacion.com/wp-content/uploads/2013/09/fondo-transparente.png';
 var originIcon = 'http://www.google.com/mapfiles/dd-start.png';
 
 function initialize() {
@@ -176,9 +176,9 @@ function addMarker(location, isDestination,node) {
       map.fitBounds(bounds);
       
       var marker = new google.maps.Marker({
-        //map: map,
+        map: map,
         position: results[0].geometry.location, //destinationB,  //prueba con destination
-        //icon: icon
+        icon: icon
       });
       
       
