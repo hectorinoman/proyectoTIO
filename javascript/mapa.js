@@ -1,16 +1,21 @@
-var tipo = "FUTBOL";
 var map;
 var geocoder;
 var bounds = new google.maps.LatLngBounds();
 var markersArray = [];
 var origin1 = new google.maps.LatLng(28.4631488, -16.270222);
 var total = [];
-//var origin2 = 'Greenwich, England';
-//var destinationA = 'Stockholm, Sweden';
-$('#btn_buscar').on('click', function(){
-	var borrar_div = document.getElementById("formulario");
-	borrar_div.parentNode.removeChild(borrar_div);
-});
+
+$("#tipo").change(function(){
+	
+	var tipo = document.getElementById("tipo").value;
+	
+	var boton = document.getElementById("btn_buscar");
+	boton.addEventListener("click",calculateDistances);
+
+	alert(tipo);
+//	var borrar_div = document.getElementById("formulario");
+//	borrar_div.parentNode.removeChild(borrar_div);
+
 $.ajax({
            type: 'POST',
            dataType: 'json',
@@ -34,38 +39,6 @@ $.ajax({
              }
            }
 });
-var destinationB = new google.maps.LatLng(28.4625658333, -16.2615531778);
-//var destinationC = 'LOLO, Chachi';
-var destinationD = new google.maps.LatLng(28.4601960556, -16.2539577278);
-//var destinationE = 'Micasa, Swed';
-var destinationF = new google.maps.LatLng(28.45921775, -16.2803861333);
-var destinationIcon = 'http://www.google.com/mapfiles/dd-end.png';
-var originIcon = 'http://www.google.com/mapfiles/dd-start.png';
-function initialize() {
-  var opts = {
-    center: new google.maps.LatLng(28.4631488, -16.270222),
-    zoom: 13
-  };
-  map = new google.maps.Map(document.getElementById('map-canvas'), opts);
-  geocoder = new google.maps.Geocoder();
-}
-function calculateDistances() {
-  var service = new google.maps.DistanceMatrixService();
-  service.getDistanceMatrix(
-    {
-      origins: [origin1],
-      destinations: total,
-      travelMode: google.maps.TravelMode.DRIVING,
-      unitSystem: google.maps.UnitSystem.METRIC,
-      avoidHighways: false,
-      avoidTolls: false
-    }, callback);
-}
-
-function sortnumber(a,b){
-  return a-b;
-  
-}
 function callback(response, status) {
 var ordenacion=[];
   if (status != google.maps.DistanceMatrixStatus.OK) {
@@ -130,6 +103,51 @@ var ordenacion=[];
       }
     }
   }
+}
+
+function calculateDistances() {
+  var service = new google.maps.DistanceMatrixService();
+  service.getDistanceMatrix(
+    {
+      origins: [origin1],
+      destinations: total,
+      travelMode: google.maps.TravelMode.DRIVING,
+      unitSystem: google.maps.UnitSystem.METRIC,
+      avoidHighways: false,
+      avoidTolls: false
+    }, callback);
+}
+
+
+});
+
+//var origin2 = 'Greenwich, England';
+//var destinationA = 'Stockholm, Sweden';
+$('#btn_buscar').on('click', function(){
+
+	calculateDistances();
+});
+
+
+var destinationB = new google.maps.LatLng(28.4625658333, -16.2615531778);
+//var destinationC = 'LOLO, Chachi';
+var destinationD = new google.maps.LatLng(28.4601960556, -16.2539577278);
+//var destinationE = 'Micasa, Swed';
+var destinationF = new google.maps.LatLng(28.45921775, -16.2803861333);
+var destinationIcon = 'http://www.google.com/mapfiles/dd-end.png';
+var originIcon = 'http://www.google.com/mapfiles/dd-start.png';
+function initialize() {
+  var opts = {
+    center: new google.maps.LatLng(28.4631488, -16.270222),
+    zoom: 13
+  };
+  map = new google.maps.Map(document.getElementById('map-canvas'), opts);
+  geocoder = new google.maps.Geocoder();
+}
+
+function sortnumber(a,b){
+  return a-b;
+  
 }
 
 function addMarker(location, isDestination,node) {
