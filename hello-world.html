@@ -1,5 +1,6 @@
 <html>
 	<body>
+	  
 <script src="https://maps.googleapis.com/maps/api/js?v=3&.js"></script>
     <div id="content-pane">
       <button type="button" onclick="calculateDistances();">
@@ -8,6 +9,8 @@
       <div id="outputDiv"></div>
     </div>
     <div id="map-canvas"></div>
+    
+   
     </body>
 </html>
 
@@ -73,6 +76,19 @@ function initialize() {
   };
   map = new google.maps.Map(document.getElementById('map-canvas'), opts);
   geocoder = new google.maps.Geocoder();
+  
+  
+  
+  
+
+
+
+  
+  
+  
+  
+  
+  
 }
 
 function calculateDistances() {
@@ -159,9 +175,31 @@ function addMarker(location, isDestination,node) {
       map.fitBounds(bounds);
       var marker = new google.maps.Marker({
         map: map,
-        position: results[0].geometry.location,
+        position: results[0].geometry.location, destinationB,
         icon: icon
+        //position:destinationB,
       });
+      
+      
+      
+
+
+marker.setMap(map);
+
+var infowindow = new google.maps.InfoWindow({
+  content:"Estadio Heliodoro Rodriguez Lopez"
+  });
+
+google.maps.event.addListener(marker, 'click', function() {
+  infowindow.open(map,marker);
+  });
+  
+      
+      
+      
+      
+      
+      
       markersArray.push(marker);
       node.appendChild(document.createTextNode('('+marker.getPosition().toUrlValue()+')'));
       node.setAttribute('title',location);
