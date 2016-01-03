@@ -57,11 +57,11 @@ var origin1 = new google.maps.LatLng(28.4631488, -16.270222);
 
 
 //var destinationA = 'Stockholm, Sweden';
-var destinationB = new google.maps.LatLng(28.4625658333, -16.2615531778);
+var destination1 = new google.maps.LatLng(28.4625658333, -16.2615531778);
 //var destinationC = 'LOLO, Chachi';
-var destinationD = new google.maps.LatLng(28.4601960556, -16.2539577278);
+var destination2 = new google.maps.LatLng(28.4601960556, -16.2539577278);
 //var destinationE = 'Micasa, Swed';
-var destinationF = new google.maps.LatLng(28.45921775, -16.2803861333);
+var destination3 = new google.maps.LatLng(28.45921775, -16.2803861333);
 
 
 
@@ -77,9 +77,44 @@ function initialize() {
   map = new google.maps.Map(document.getElementById('map-canvas'), opts);
   geocoder = new google.maps.Geocoder();
   
+
   
-  
-  
+  var LocationData = [
+	[28.4625658333, -16.2615531778, "Primer estadio" ], 
+	[28.4601960556, -16.2539577278, "Segundo Estadio" ], 
+	[28.45921775, -16.2803861333, "tercer estadio" ]
+];
+
+
+
+
+
+
+	var bounds = new google.maps.LatLngBounds();
+	var infowindow = new google.maps.InfoWindow();
+	
+	for (var i in LocationData)
+	{
+		var p = LocationData[i];
+		var latlng = new google.maps.LatLng(p[0], p[1]);
+		bounds.extend(latlng);
+		
+		var marker = new google.maps.Marker({
+			position: latlng,
+			map: map,
+			title: p[2]
+		});
+	
+		google.maps.event.addListener(marker, 'click', function() {
+			infowindow.setContent(this.title);
+			infowindow.open(map, this);
+		});
+	}
+	
+	map.fitBounds(bounds);
+
+
+google.maps.event.addDomListener(window, 'load', initialize);
 
 
 
@@ -96,7 +131,7 @@ function calculateDistances() {
   service.getDistanceMatrix(
     {
       origins: [origin1],
-      destinations: [destinationB, destinationD, destinationF],
+      destinations: [destination1, destination2, destination3],
       travelMode: google.maps.TravelMode.DRIVING,
       unitSystem: google.maps.UnitSystem.METRIC,
       avoidHighways: false,
@@ -175,25 +210,15 @@ function addMarker(location, isDestination,node) {
       map.fitBounds(bounds);
       var marker = new google.maps.Marker({
         map: map,
-        position: results[0].geometry.location, destinationB,
+        position: results[0].geometry.location, //destinationB,  //prueba con destination
         icon: icon
-        //position:destinationB,
       });
       
       
       
 
 
-marker.setMap(map);
 
-var infowindow = new google.maps.InfoWindow({
-  content:"Estadio Heliodoro Rodriguez Lopez"
-  });
-
-google.maps.event.addListener(marker, 'click', function() {
-  infowindow.open(map,marker);
-  });
-  
       
       
       
