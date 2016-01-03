@@ -216,7 +216,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
 function mostrarinfo(){
     
   var LocationData = [
-	[28.4625658333, -16.2615531778, "Primer estadio" ], 
+	[28.4625658333, -16.2615531778, src="vidrio.jpeg" ], 
 	[28.4601960556, -16.2539577278, "Segundo Estadio" ], 
 	[28.45921775, -16.2803861333, "tercer estadio" ]
 ];
@@ -238,7 +238,8 @@ function mostrarinfo(){
 		var marker = new google.maps.Marker({
 			position: latlng,
 			map: map,
-			title: p[2]
+			title: p[2],
+			icon: 'a.png'
 		});
 	
 		google.maps.event.addListener(marker, 'click', function() {
