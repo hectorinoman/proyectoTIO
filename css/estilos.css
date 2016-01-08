@@ -48,8 +48,7 @@ html, body {
       #content-pane {
         float:right;
         width:48%;
-        overflow-y: auto;
-        height: 100%;
+        
       }
       #outputDiv > div:nth-child(n+2){
          border-top:1px dotted silver;
