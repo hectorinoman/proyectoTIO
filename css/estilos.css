@@ -62,6 +62,11 @@ code2 {
 	display: none;
 }
 
+#img_publicar{
+	padding-top: 40%;
+}
 
-
+#boton_publicar {
+	margin-top:4%;
+}
 
