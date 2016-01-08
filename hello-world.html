@@ -8,6 +8,7 @@
       </button>
       <div id="outputDiv"></div>
     </div>
+ 
     <div id="map-canvas"></div>
     
    
@@ -29,15 +30,25 @@ html, body {
         float:right;
         width:48%;
         padding-left: 2%;
+        
+        
+        overflow-y: auto;
+        height: 100%;
       }
 
       #outputDiv>div:nth-child(n+2){
          border-top:1px dotted silver;
+         
       }
       #outputDiv code{
         cursor:pointer;
         color:#fff;
+  
       }
+      
+      
+      
+
 </style>
 
 
@@ -62,7 +73,24 @@ var destination1 = new google.maps.LatLng(28.4625658333, -16.2615531778);
 var destination2 = new google.maps.LatLng(28.4601960556, -16.2539577278);
 //var destinationE = 'Micasa, Swed';
 var destination3 = new google.maps.LatLng(28.45921775, -16.2803861333);
-
+var destination4 = new google.maps.LatLng(28.4625658333, -16.2615531778);
+//var destinationC = 'LOLO, Chachi';
+var destination5 = new google.maps.LatLng(28.4601960556, -16.2539577278);
+//var destinationE = 'Micasa, Swed';
+var destination6 = new google.maps.LatLng(28.45921775, -16.2803861333);
+var destination7 = new google.maps.LatLng(28.4625658333, -16.2615531778);
+//var destinationC = 'LOLO, Chachi';
+var destination8 = new google.maps.LatLng(28.4601960556, -16.2539577278);
+//var destinationE = 'Micasa, Swed';
+var destination9 = new google.maps.LatLng(28.45921775, -16.2803861333);
+var destination10 = new google.maps.LatLng(28.4625658333, -16.2615531778);
+//var destinationC = 'LOLO, Chachi';
+var destination11 = new google.maps.LatLng(28.4601960556, -16.2539577278);
+//var destinationE = 'Micasa, Swed';
+var destination12 = new google.maps.LatLng(28.45921775, -16.2803861333);
+var destination13 = new google.maps.LatLng(28.4601960556, -16.2539577278);
+//var destinationE = 'Micasa, Swed';
+var destination14 = new google.maps.LatLng(28.45921775, -16.2803861333);
 
 
 
@@ -73,9 +101,11 @@ function initialize() {
   var opts = {
     center: new google.maps.LatLng(28.4631488, -16.270222),
     zoom: 13
+    
   };
   map = new google.maps.Map(document.getElementById('map-canvas'), opts);
   geocoder = new google.maps.Geocoder();
+  map.div.style.position = 'fixed';
   
 
 
@@ -95,7 +125,7 @@ function calculateDistances() {
   service.getDistanceMatrix(
     {
       origins: [origin1],
-      destinations: [destination1, destination2, destination3],
+      destinations: [destination1, destination2, destination3, destination4, destination5, destination6, destination7, destination8, destination9, destination10, destination11, destination12, destination13, destination14],
       travelMode: google.maps.TravelMode.DRIVING,
       unitSystem: google.maps.UnitSystem.METRIC,
       avoidHighways: false,
@@ -241,7 +271,7 @@ function mostrarinfo(){
 			position: latlng,
 			map: map,
 			title: p[2],
-			icon: 'a.png'
+			//icon: 'a.png'
 		});
 	
 		google.maps.event.addListener(marker, 'click', function() {
