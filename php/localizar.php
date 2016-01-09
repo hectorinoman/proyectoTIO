@@ -14,6 +14,7 @@ $conn->close();
 $link = mysql_connect($servername,$username,$password)
     or die('No se pudo conectar: ' . mysql_error());
 mysql_select_db($dbname) or die('No se pudo seleccionar la base de datos');
+mysql_query("SET NAMES 'utf8'");
 $tipo = $_POST['tipo'];
 $nombre = $_POST['nombre'];
 
