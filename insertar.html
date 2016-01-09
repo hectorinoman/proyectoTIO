@@ -3,7 +3,7 @@
         <meta http-equiv="content-type" content="text/html; charset=UTF-8">
         <link role="link" rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
         <link role="link" rel="stylesheet" type="text/css" href="css/estilos.css">
-        <title>proyectoTIO</title>
+        <title>ACTÍVATE</title>
 </head>
 
 <body>
@@ -12,46 +12,47 @@
     <div class="col-lg-1"></div>
     <div class="col-lg-5" id="formulario_publicar">
 
-			<div class="col-md-offset-5">
-				<h2 role="heading">Inserta una Instalación</h2>
+			<div class="col-md-offset-4">
+				<h2 id="h2_insertar">Inserta una Instalación</h2>
 			</div>
 
       <form class="form-horizontal" id="formPublicar" role="form" method="POST" enctype="multipart/form-data">
           <div class="form-group">
-            <label class="col-lg-4 control-label">Nombre</label>
+            <label class="col-lg-4 control-label">Nombre*</label>
             <div class="col-lg-7">
-              <input type="text" id="nombre" name="nombre" class="form-control" placeholder="Nombre de la Instalación"><span id="msg1" class="destacado"></span>
+              <input type="text" required id="nombre" name="nombre" class="form-control" placeholder="Nombre de la Instalación"><span id="msg1" class="destacado"></span>
             </div>
           </div>
 	
 
 	<div class="form-group">
-	<label class="col-lg-4 control-label">Tipo</label>
+	<label class="col-lg-4 control-label">Tipo*</label>
 	<div class="col-lg-7">
 	<select class="form-control" id='tipo'>
                   <option value="BALONCESTO">Baloncesto</option>
                   <option value="FUTBOL">Fútbol</option>
+		  <option value="PETANCA">Petanca</option>
         </select>
 	</div>	
 	</div>
           <div class="form-group">
-            <label class="col-lg-4 control-label">Localidad</label>
+            <label class="col-lg-4 control-label">Localidad*</label>
             <div class="col-lg-7">
-              <input type="text" id="localidad" name="localidad" class="form-control" placeholder="Barranco Grande, Añaza..."><span id="msg2" class="destacado"></span>
+              <input type="text" id="localidad" required  name="localidad" class="form-control" placeholder="Barranco Grande, Añaza..."><span id="msg2" class="destacado"></span>
             </div>
           </div>
 
           <div class="form-group">
-            <label class="col-lg-4 control-label">Dirección</label>
+            <label class="col-lg-4 control-label">Dirección*</label>
             <div class="col-lg-7">
-              <input type="text" id="direccion" name="direccion" class="form-control" placeholder="Calle Nuñez"><span id="msg3" class="destacado"></span>
+              <input type="text" id="direccion" required name="direccion" class="form-control" placeholder="Calle Nuñez"><span id="msg3" class="destacado"></span>
             </div>
           </div>
 
 	<div class="form-group">
-            <label class="col-lg-4 control-label">Código Postal</label>
+            <label class="col-lg-4 control-label">Código Postal*</label>
             <div class="col-lg-7">
-              <input type="text" id="cp" name="cp" class="form-control" placeholder="38005"><span id="msg4" class="destacado"></span>
+              <input type="text" id="cp" name="cp" class="form-control" required placeholder="38005"><span id="msg4" class="destacado"></span>
             </div>
           </div>
 
@@ -84,31 +85,36 @@
           </div>
 
 	<div class="form-group">
-            <label class="col-lg-4 control-label">Latitud</label>
+            <label class="col-lg-4 control-label">Latitud*</label>
             <div class="col-lg-7">
-              <input type="text" class="form-control" id="lat" name="lat" rows="5" placeholder="28.4620094444"/>
+              <input type="text" class="form-control" id="lat" name="lat" rows="5" placeholder="28.4620094444" required = "required"/>
             </div>
           </div>
 
 	<div class="form-group">
-            <label class="col-lg-4 control-label">Longitud</label>
+            <label class="col-lg-4 control-label">Longitud*</label>
             <div class="col-lg-7">
-              <input type="text" class="form-control" id="long" name="long" rows="5" placeholder="-16.2596069444"/>
+              <input type="text" class="form-control" id="long" name="long" rows="5" required  placeholder="-16.2596069444"/>
             </div>
           </div>
 
-	  <div class="col-lg-8 col-lg-offset-4"><span id="msg5" class="error_p"></span>
+	  <div class="col-lg-8 col-lg-offset-4"><span id="msg5" class="bien_p"</span>
 		
 	  </div>
+
+	 <div class="col-lg-8 col-lg-offset-4"><span id="msg6" class="error_p"></span>
+
+          </div>
+
           <div class="form-group">
             <div class="col-lg-offset-4 col-lg-10">
-              <button role="button" aria-pressed="false" type="button" id="boton_publicar" name="boton_publicar" class="btn btn-primary">Insertar</button>
+              <button role="button" aria-pressed="false" type="submit" id="boton_publicar" name="boton_publicar" class="btn btn-primary">Insertar</button>
             </div>
           </div>
       </form>
     </div>
 		<div class="col-lg-5">
-			<img role="img" id="img_publicar" src="http://cdn.padelreservas.com/club-714/album/imagen-del-las-instalaciones-del-club-instalaciones-deportivas-enrique-manuel-aranda-valos-foto-1.png" alt="">
+			<img role="img" id="img_publicar" src="https://upload.wikimedia.org/wikipedia/commons/d/db/Sports_portal_bar_icon.png" alt="">
 		</div>
   </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>

@@ -11,9 +11,13 @@ $(document).ready(function(){
  		var gradas = $('#gradas').val();
  		var horario = $('#horario').val();
 		var latitud = $('#lat').val();
-		var longitud = $('#lon').val();
+		var longitud = $('#long').val();
 		var tipo = $('#tipo').val();
-		alert("tipoooo: " + tipo)
+		if((nombre=="")||(localidad=="")||(direccion=="")||(cp=="")||(latitud=="")||(longitud=="")){
+                        //document.getElementById("msg1").innerHTML = "Es necesario poner un título";
+                	$('#msg6').html('<span class="error_p">Es necesario rellenar los campos marcados con *</span>');
+                }
+		else{
 		$.ajax({
 			type: 'POST',
 			url: 'php/insertar.php',
@@ -21,9 +25,8 @@ $(document).ready(function(){
 			
 			success: function(valor){
 				if(valor == "true"){
-
-					alert("insertado");
-					$('#msg5').html('<span class="bien_p">Instalación insertada correctamente</span>');
+					document.getElementById("msg6").innerHTML = "";
+					$('#msg5').html('<span class="bien_p">Instalación insertada correctamente.</span>');
 					$('#nombre').val('');
 					$('#localidad').val('');
 					$('#direccion').val('');
@@ -37,15 +40,13 @@ $(document).ready(function(){
 				}
 
 				else {
-					alert("no insertado");
-				/*	document.getElementById("msg5").innerHTML = "Error al publicar el anuncio. Recuerda que la foto tiene que ser jpg y tener un tamaño máximo de 400K";
-					document.getElementById("msg1").innerHTML = "";
-					document.getElementById("msg2").innerHTML = "";
-					document.getElementById("msg3").innerHTML = "";
-					document.getElementById("msg4").innerHTML = "";*/
+					document.getElementById("msg6").innerHTML = "";
+					document.getElementById("msg5").innerHTML = "";
+					$('#msg6').html('<span class="bien_p">Instalación no insertada. Ponga correctamente los datos.</span>');
 				}	
 			} 
 		});
+		}
 		return false;
 		});
 	});
