@@ -1,5 +1,5 @@
 var map;
-var index = 9;
+var index = 10;
 var bounds = new google.maps.LatLngBounds();
 var markersArray = [];
 var total = [];
@@ -89,8 +89,6 @@ $.ajax({
 			horario.push(hora);
                         var latitud = response.datos[i].LATITUD;
                         var longitud = response.datos[i].LONGITUD;
-                        //var div = "<div>"+nombre+" "+latitud+" "+longitud+"</div>";
-                        //$(div).appendTo("#resultado");
 			var destinationB = new google.maps.LatLng(latitud, longitud);
 			total.push(destinationB);
                 }
@@ -115,19 +113,20 @@ var ordenacion=[];
     var titulo = outputDiv.appendChild(document.createElement('h4'));
 	var contenido = document.createTextNode("Resultados");
     titulo.appendChild(contenido);
-    for (var i = 0; i < origins.length; i++) {
+ 
       //create a new "row"
       var row=outputDiv.appendChild(document.createElement('div'));
       
-      var results = response.rows[i].elements;
+      var results = response.rows[0].elements;
       //origin-marker
-      addMarker(origins[i], false,row.appendChild(document.createElement('code2')));
+      addMarker(origins[0], false,row.appendChild(document.createElement('code2')));
       //a list for the destinations
       var list=row.appendChild(document.createElement('ul'));
       
         
       for(var k=0; k<results.length; k++){
-        var x = (results[k].distance.text.replace(" km",""));
+        var x = results[k].distance.text;
+	x = x.replace(" km","");
         x = parseFloat(x.replace(",","."));
         ordenacion[k]=x;   //ordenaaaaaaaa
       }
@@ -143,12 +142,9 @@ var ordenacion=[];
       }
       
       
-      for(var w=0; w<index; w++){
+      for(var w=0; w<results.length; w++){
         
       for (var j = 0; j < index; j++) {
-        //ordenacion[j]=results[j].distance.text;   //ordenaaaaaaaa
-        //ordenacion.sort();
-        //results = ordenacion;
         if(ordenacion[w]==results[j].distance.text){
         
         var item = list.appendChild(document.createElement('li'));
@@ -203,7 +199,7 @@ var ordenacion=[];
         }
       }
       }
-    }
+    
   }
 }
 
